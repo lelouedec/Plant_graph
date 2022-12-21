@@ -66,7 +66,8 @@ Once created it is possible to execute various functions on the plant graph.
 
 ### Utilities functions
 
-  - Get the total length of branches with:  ```print("Total branches length:","%.2f" %plant.total_edges_length(),"mm")```
+  - Get the total length of branches with: 
+   ```print("Total branches length:","%.2f" %plant.total_edges_length(),"mm")```
  
 
 
