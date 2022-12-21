@@ -25,7 +25,7 @@ class Organ():
 
 #one type of node 
 class Leaf(Organ):
-    def __init__(self,area,pts,origin):
+    def __init__(self,pts,area,origin):
         Organ.__init__(self,pts, "Leaf",origin) 
         self.area  = area
         self.colour  = [0.0,1.0,0.0]
@@ -45,6 +45,7 @@ class Leaf(Organ):
 class Crown(Organ):
     def __init__(self,pts,origin):
         Organ.__init__(self,pts, "Crown",origin) 
+        self.colour = [1.0,0.0,1.0]
 
     def __str__(self):
         # A print function, so each object can be inspected by its main attributes, neatly formatted as a string
@@ -59,7 +60,7 @@ class Crown(Organ):
 
 #one type of node 
 class Strawberry(Organ):
-    def __init__(self,volume,pts,origin):
+    def __init__(self,pts,volume,origin):
         Organ.__init__(self, pts,"Strawberry",origin) 
         self.volume  = volume
         self.colour  = [1.0,0.0,0.0]

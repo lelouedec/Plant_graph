@@ -33,7 +33,6 @@ class Plant():
                                 (coordinate[1]-n.origin[1]) * (coordinate[1]-n.origin[1]) + 
                                 (coordinate[2]-n.origin[2]) * (coordinate[2]-n.origin[2])  
                              )
-            print(distance,coordinate,n.origin)
             if(distance<=min_dist):
                 min_dist=distance
                 id = i
@@ -53,7 +52,8 @@ class Plant():
         return string_val
 
     def Visualize(self):
-        geometries = []        
+        geometries = []
+        geometries.append(self.nodes[0].o3d_mesh())        
         for i in range(0,len(self.edges)):
             geometries.append(self.edges[i].o3d_mesh())
             node = None
