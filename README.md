@@ -60,7 +60,7 @@ Once created it is possible to execute various functions on the plant graph.
 
 
   
-    - String print : it is also possible to print the plant graph in the console using ```print(plant)``` to get:
+  - String print : it is also possible to print the plant graph in the console using ```print(plant)``` to get:
     
     ![print output!](images/print.png "print output")
 
