@@ -5,6 +5,13 @@ import open3d as o3d
 import numpy as np
 
 
+def Euclidean_distance(c1,c2):
+    return np.sqrt( (c1[0]-c2[0]) * (c1[0]-c2[0]) + 
+                    (c1[1]-c2[1]) * (c1[1]-c2[1]) + 
+                    (c1[2]-c2[2]) * (c1[2]-c2[2])  
+                    )
+
+
 class Plant():
     def __init__(self,nodes,edges):## the plant is just a collection of stems (petioles,branches,runners...) and nodes (fruit, leaves and crowns)
         self.edges = edges
@@ -24,15 +31,20 @@ class Plant():
             self.nodes[e.nodes_idx[0]].next.append(i)
             self.nodes[e.nodes_idx[1]].prev.append(i)
 
+    def total_edges_length(self):
+        total_length = 0.0
+        for e in self.edges:
+            length = 0.0
+            for i in range(1,len(e.vertices)):
+                length+= Euclidean_distance(e.vertices[i-1],e.vertices[i])
+            total_length+=length
+        return total_length
 
     def  find_closest_node(self,coordinate):
         min_dist = 1000.0
         id = None
         for i,n in enumerate(nodes):
-            distance = np.sqrt( (coordinate[0]-n.origin[0]) * (coordinate[0]-n.origin[0]) + 
-                                (coordinate[1]-n.origin[1]) * (coordinate[1]-n.origin[1]) + 
-                                (coordinate[2]-n.origin[2]) * (coordinate[2]-n.origin[2])  
-                             )
+            distance = Euclidean_distance(coordinate,n.origin) 
             if(distance<=min_dist):
                 min_dist=distance
                 id = i
@@ -89,14 +101,15 @@ class Plant():
 if __name__ == "__main__":
     
     dummy_points_cloud = np.array([[0.0,0.0,0.0],[0.0,2.0,0.0],[0.0,1.0,0.0]])
+    straw_dummy_pts = np.load("straw_test.npy")
     ## nodes can be crown, leaves, fruits. each with different attributes
     nodes = [Crown(dummy_points_cloud,np.array([0,0,0])),
              Leaf(dummy_points_cloud,10,np.array([0.5,2.0,0.0])),
              Leaf(dummy_points_cloud,15,np.array([0.0,1.5,2.0])),
-             Strawberry(dummy_points_cloud,50,np.array([0.0,1.5,-2.0])),
+             Strawberry(straw_dummy_pts,50,np.array([0.0,1.5,-2.0])),
              Junction(dummy_points_cloud,np.array([2.0,1.5,0.0])),
              Leaf(dummy_points_cloud,3,np.array([2.5,2.0,0.0])),
-             Strawberry(dummy_points_cloud,25,np.array([2.5,1.5,0.0]))]
+             Strawberry(straw_dummy_pts,25,np.array([2.5,1.5,0.0]))]
 
     ##edges can be petioles, runners, branches etc.. each class as different attributes
     # We pass to the Petiole class the pointcloud of the edge, the coordinates of all the keypoints from begining to end, and the nodes it is connected to (can be None)
@@ -111,6 +124,7 @@ if __name__ == "__main__":
     plant = Plant(nodes,edges)
 
     print(plant)
+    print("Total branches length:","%.2f" %plant.total_edges_length(),"mm")
     plant.L_representation()
     plant.Visualize()
 
