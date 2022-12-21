@@ -53,6 +53,8 @@ Once created it is possible to execute various functions on the plant graph.
   - Open3D simplified mesh: Each organ and edge have a function returning a simplified open3d symbol to display the structure of the plant. To call the function simply use ```plant.Visualize()``` to get:
 
     ![Open3d visualization!](images/Open3d_example.png "Open3D visualization example")
+
+  In Green the leaves, red berries and purple Crown.
   
   - L-system string: You can also output a L-system string describing the plant structure. To call the function simply use  ```plant.L_representation()``` to get :
   
