@@ -72,13 +72,14 @@ class Strawberry(Organ):
         L         :   number of spherical harmonics degrees
         sph_coefs :   spherical harmonics coefficients
     """
-    def __init__(self,pts,volume,origin):
+    def __init__(self,pts,origin):
         Organ.__init__(self, pts,"Strawberry",origin) 
-        self.volume  = volume
         self.colour  = [1.0,0.0,0.0]
-        self.L = 15 
+        self.L = 10 
         self.sph_coefs = self.Compute_harmonics(pts)
-        # self.Mesh_from_harmonics()
+        self.mesh = self.Mesh_from_harmonics()
+        print("computing fruit volume with open3d....")
+        self.volume = self.mesh.get_volume()
 
     def __str__(self):
         # A print function, so each object can be inspected by its main attributes, neatly formatted as a string
@@ -181,7 +182,8 @@ class Strawberry(Organ):
         mesh = o3d.geometry.TriangleMesh()
         mesh.vertices = o3d.utility.Vector3dVector(vertices)
         mesh.triangles = o3d.utility.Vector3iVector(sphere_triangles)
-        o3d.visualization.draw_geometries([mesh])
+        # o3d.visualization.draw_geometries([mesh])
+        return mesh
 
 
         

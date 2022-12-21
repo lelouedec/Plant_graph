@@ -106,10 +106,10 @@ if __name__ == "__main__":
     nodes = [Crown(dummy_points_cloud,np.array([0,0,0])),
              Leaf(dummy_points_cloud,10,np.array([0.5,2.0,0.0])),
              Leaf(dummy_points_cloud,15,np.array([0.0,1.5,2.0])),
-             Strawberry(straw_dummy_pts,50,np.array([0.0,1.5,-2.0])),
+             Strawberry(straw_dummy_pts,np.array([0.0,1.5,-2.0])),
              Junction(dummy_points_cloud,np.array([2.0,1.5,0.0])),
              Leaf(dummy_points_cloud,3,np.array([2.5,2.0,0.0])),
-             Strawberry(straw_dummy_pts,25,np.array([2.5,1.5,0.0]))]
+             Strawberry(straw_dummy_pts,np.array([2.5,1.5,0.0]))]
 
     ##edges can be petioles, runners, branches etc.. each class as different attributes
     # We pass to the Petiole class the pointcloud of the edge, the coordinates of all the keypoints from begining to end, and the nodes it is connected to (can be None)
